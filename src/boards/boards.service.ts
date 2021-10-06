@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Board, BoardStatus } from './boards.model';
 import { v1 as uuid } from 'uuid'; //v1은 버전
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -21,6 +21,24 @@ export class BoardsService {
     };
 
     this.boards.push(board);
+    return board;
+  }
+
+  getBoardById(id: string): Board {
+    const found = this.boards.find((boards) => boards.id === id);
+    if (!found) {
+      throw new NotFoundException(`해당 ID:${id}는 없는 게시글 입니다.`);
+    }
+    return found;
+  }
+
+  deleteBoard(id: string): void {
+    this.boards = this.boards.filter((board) => board.id !== id);
+  }
+
+  updateBoardStatus(id: string, status: BoardStatus): Board {
+    const board = this.getBoardById(id);
+    board.status = status;
     return board;
   }
 }
