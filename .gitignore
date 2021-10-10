@@ -37,3 +37,4 @@ lerna-debug.log*
 # 예 디렉터리는 /로 마쳐야함
 src/configs/
 ./src/configs/typeorm.config.ts
+./src/configs/

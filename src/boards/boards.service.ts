@@ -27,7 +27,7 @@ export class BoardsService {
   getBoardById(id: string): Board {
     const found = this.boards.find((boards) => boards.id === id);
     if (!found) {
-      throw new NotFoundException(`해당 ID:${id}는 없는 게시글 입니다.`);
+      throw new NotFoundException(`해당 ID:${id}는 없는 게시글 입니다..`);
     }
     return found;
   }
