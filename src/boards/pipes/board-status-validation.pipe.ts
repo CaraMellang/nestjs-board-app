@@ -4,7 +4,7 @@ import {
   PipeTransform,
 } from '@nestjs/common';
 import { resourceLimits } from 'worker_threads';
-import { BoardStatus } from '../boards.model';
+import { BoardStatus } from '../board-status.enum';
 
 export class BoardStatusValidationPipe implements PipeTransform {
   readonly StatusOptions = [BoardStatus.PUBLIC, BoardStatus.PRIVATE];
