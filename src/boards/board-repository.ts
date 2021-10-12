@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { BoardStatus } from './board-status.enum';
 import { Board } from './board.entity';
@@ -13,6 +14,33 @@ export class BoardRepository extends Repository<Board> {
       description,
       status: BoardStatus.PUBLIC,
     });
+    await this.save(Board);
+    return Board;
+  }
+
+  async getBoardById(id: number): Promise<Board> {
+    const found = await this.findOne(id);
+    if (!found) {
+      throw new NotFoundException(`해당 ID:${id}는 없는 게시글 입니다.`);
+    }
+    return found;
+  }
+
+  async deleteBoard(id: number): Promise<void> {
+    const result = await this.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`can't find Board with id ${id}`);
+    }
+
+    console.log('result : ', result);
+  }
+
+  async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+    const Board = await this.getBoardById(id);
+
+    Board.status = status;
+
     await this.save(Board);
     return Board;
   }

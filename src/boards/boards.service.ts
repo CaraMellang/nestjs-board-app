@@ -30,12 +30,8 @@ export class BoardsService {
     return this.boardRepository.createBoard(createBoardDto);
   }
 
-  async getBoardById(id: number): Promise<Board> {
-    const found = await this.boardRepository.findOne(id);
-    if (!found) {
-      throw new NotFoundException(`해당 ID:${id}는 없는 게시글 입니다.`);
-    }
-    return found;
+  getBoardById(id: number): Promise<Board> {
+    return this.boardRepository.getBoardById(id);
   }
 
   // getBoardById(id: string): Board {
@@ -45,10 +41,20 @@ export class BoardsService {
   //   }
   //   return found;
   // }
+
+  deleteBoard(id: number): Promise<void> {
+    return this.boardRepository.deleteBoard(id);
+  }
+
   // deleteBoard(id: string): void {
   //   const found = this.getBoardById(id); //throw에서 캇!!
   //   this.boards = this.boards.filter((board) => board.id !== found.id);
   // }
+
+  updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+    return this.boardRepository.updateBoardStatus(id, status);
+  }
+
   // updateBoardStatus(id: string, status: BoardStatus): Board {
   //   const board = this.getBoardById(id);
   //   board.status = status;
