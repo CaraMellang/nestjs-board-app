@@ -20,6 +20,11 @@ import { Board } from './board.entity';
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
+  @Get()
+  getAllBoards(): Promise<Board[]> {
+    return this.boardsService.getAllBoards();
+  }
+
   // @Get()
   // getAllTasks(): Board[] {
   //   return this.boardsService.getAllBoards();

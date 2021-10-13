@@ -12,6 +12,11 @@ export class BoardsService {
     @InjectRepository(BoardRepository) private boardRepository: BoardRepository,
   ) {}
   // private boards: Board[] = [];
+
+  getAllBoards(): Promise<Board[]> {
+    return this.boardRepository.find(); //find에 파라미터가 없으면 모든 테이블을 조회
+  }
+
   // getAllBoards(): Board[] {
   //   return this.boards;
   // }
