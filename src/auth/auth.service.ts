@@ -12,4 +12,8 @@ export class AuthService {
   signup(authCredentialDto: AuthCredentialDto): Promise<void> {
     return this.userRepository.createUser(authCredentialDto);
   }
+
+  signin(authCredentialDto: AuthCredentialDto): Promise<string> {
+    return this.userRepository.signInUser(authCredentialDto);
+  }
 }
