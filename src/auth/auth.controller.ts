@@ -32,5 +32,6 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   test(@Req() req) {
     console.log('req', req);
+    return req.user;
   }
 }
