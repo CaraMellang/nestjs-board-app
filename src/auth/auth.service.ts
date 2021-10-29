@@ -19,7 +19,7 @@ export class AuthService {
 
   async signIn(
     authCredentialDto: AuthCredentialDto,
-  ): Promise<{ accessToken: string }> {
+  ): Promise<{ accessToken: string; username: string; createdAt: Date }> {
     const { username, password } = authCredentialDto;
 
     const user = await this.userRepository.findOne({ username });
@@ -28,7 +28,11 @@ export class AuthService {
       //유저 토큰 생성 (Secret + payload)
       const payload = { username }; //페이로드는 중요정보 삽입 X
       const accessToken = await this.jwtService.sign(payload);
-      return { accessToken };
+      return {
+        accessToken,
+        username: user.username,
+        createdAt: user.created_at,
+      };
     } else {
       throw new UnauthorizedException('login failed');
     }
